@@ -51,7 +51,7 @@ export default function ShoppinfCartButton(
                 </div>
                 <div className="cart-actions">
                     <Link
-                        href="/"
+                        href="/cart"
                         className="btn btn-block btn-primary"
                         onClick={closeDropdown}
                     >

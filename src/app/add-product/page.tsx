@@ -1,6 +1,9 @@
 import { prisma } from "@/lib/db/prisma";
 import { redirect } from "next/navigation";
 import SubmitButton from "@/components/SubmitButton";
+import { authOptions } from "../api/auth/[...nextauth]/route";
+import { getSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
 
 export const metadata = {
   title: 'Add Product - ShopBuddy',
@@ -25,7 +28,14 @@ async function addProduct(formData: FormData) {
   redirect("/");
 }
 
-export default function AddProductPage() {
+export default async function AddProductPage() {
+
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    redirect("/api/auth/signin?callbackUrl=/add-product");
+  }
+
   return (
     <div>
       <h1 className="text-lg mb-3 font-bold">Add Product</h1>
